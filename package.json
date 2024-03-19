@@ -1,7 +1,7 @@
 {
-  "name": "system-design-library",
+  "name": "2ds-system-design-library",
   "version": "1.0.6",
-  "description": "mui system design",
+  "description": "mui system design library",
   "scripts": {
     "test": "jest",
     "build": "npm run clean && npm run build:cjs && npm run build:esm",
