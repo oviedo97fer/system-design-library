@@ -1,6 +1,5 @@
-"use client";
 import React from "react";
-import { makeStyles } from "@mui/styles";
+import { styled, Theme } from "@mui/system";
 import {
   ListItemButton,
   ListItemText,
@@ -14,16 +13,17 @@ interface Props {
   icon?: React.ReactNode;
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: (props: Props & Omit<ListItemButtonProps, keyof Props>) => ({
+const CustomPaymentMethodCard = styled(ListItemButton)<Props>(
+  ({
+    theme,
+    selected,
+  }: { theme: Theme } & Props & Omit<ListItemButtonProps, keyof Props>) => ({
     textTransform: "capitalize",
     padding: ".5em 1.5em",
     gap: "1em",
-    border: `1px solid ${
-      props.selected ? theme.palette.primary.main : theme.palette.text.disabled
-    }`,
+    border: `1px solid ${selected ? theme.palette.primary.main : theme.palette.text.disabled}`,
     borderRadius: ".5em",
-    boxShadow: props.selected
+    boxShadow: selected
       ? `0px 0px 5px 1px ${theme.palette.primary.main}`
       : "unset",
     "&.Mui-selected": {
@@ -38,19 +38,18 @@ const useStyles = makeStyles((theme) => ({
       transition: ".3s ease",
       background: theme.palette.background.light,
     },
-  }),
-}));
+  })
+) as typeof ListItemButton;
 
 const PaymentMethodCard = (
   props: Props & Omit<ListItemButtonProps, keyof Props>
 ) => {
   const { title, description, icon, ...other } = props;
-  const classes = useStyles(props);
   return (
-    <ListItemButton className={classes.root} {...other}>
+    <CustomPaymentMethodCard {...other}>
       <Box className="cardIcon">{icon}</Box>
       <ListItemText primary={title} secondary={description} />
-    </ListItemButton>
+    </CustomPaymentMethodCard>
   );
 };
 

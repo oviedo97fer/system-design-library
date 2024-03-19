@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@mui/styles";
+import { styled, Theme } from "@mui/system";
 import {
   Typography as MuiTypography,
   TypographyProps as MuiTypographyProps,
@@ -12,29 +12,27 @@ interface Props {
   iconPosition?: "start" | "end";
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: (props: Props & Omit<MuiTypographyProps, keyof Props>) => ({
+const CustomTypography = styled(MuiTypography)<Props>(
+  ({ theme }: { theme: Theme }) => ({
     color: theme.palette.text.primary,
-  }),
-}));
+  })
+) as typeof MuiTypography;
 
 const Typography = (props: Props & Omit<MuiTypographyProps, keyof Props>) => {
   const {
     children,
     text,
-    translationFunction,
+    translationFunction = (text?: string) => text,
     iconPosition = "start",
     icon,
     ...other
   } = props;
-  const classes = useStyles(props);
-  const t = (text?: string) => text;
   return (
-    <MuiTypography className={classes.root} {...other}>
+    <CustomTypography {...other}>
       {iconPosition === "start" && icon}
-      {t(text)}
+      {translationFunction(text)}
       {iconPosition === "end" && icon}
-    </MuiTypography>
+    </CustomTypography>
   );
 };
 
