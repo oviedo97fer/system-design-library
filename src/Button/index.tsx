@@ -17,7 +17,6 @@ const CustomButton = styled(MuiButton)(
     theme,
     isSuccess,
     error,
-    ...other
   }: { theme: Theme } & Props & Omit<MuiButtonProps, keyof Props>) => ({
     borderRadius: 25,
     textTransform: "none",

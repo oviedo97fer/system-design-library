@@ -18,9 +18,6 @@ declare module "@mui/material/styles/createPalette" {
     purple?: object;
   }
 }
-declare module "@mui/styles/defaultTheme" {
-  interface DefaultTheme extends Theme {}
-}
 
 export const theme = createTheme({
   palette: {
