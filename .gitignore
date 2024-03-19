@@ -12,4 +12,5 @@ artifacts/
 *.sln.ide
 .vs/
 node_modules/
+design-system/
 #*.env

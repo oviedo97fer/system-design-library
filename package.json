@@ -9,7 +9,7 @@
     "build:esm": "tsc -m es6 --outDir esm",
     "clean": "rimraf lib esm",
     "storybook": "storybook dev -p 6006",
-    "storybook:build": "build-storybook -o design-system"
+    "storybook:build": "storybook build -o design-system"
   },
   "main": "lib/index.js",
   "types": "./lib",
