@@ -24,5 +24,5 @@
            "rootDirs": ["src", "stories"],
            "skipLibCheck": true,
     },
-       "include": ["src/**/*", "*.d.ts", "index.ts"]
+       "include": ["src/**/*", "*.d.ts", "src/index.ts"]
    }
