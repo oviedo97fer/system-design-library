@@ -53,6 +53,7 @@
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.10",
     "@mui/system": "^5.15.13",
     "@storybook/react": "^8.0.0",

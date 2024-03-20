@@ -5,7 +5,7 @@ import Typography from "../Typography";
 import TestWrapper from "./TestWrapper";
 
 describe("Typography component", () => {
-  it("debería renderizar el texto correctamente", () => {
+  it("render text", () => {
     const { getByText } = render(
       <TestWrapper>
         <Typography text="Texto de prueba" />
@@ -14,7 +14,7 @@ describe("Typography component", () => {
     expect(getByText("Texto de prueba")).toBeInTheDocument();
   });
 
-  it('debería renderizar el icono antes del texto si iconPosition es "start"', () => {
+  it("render text with start icon", () => {
     const { getByTestId } = render(
       <TestWrapper>
         <Typography
@@ -28,7 +28,7 @@ describe("Typography component", () => {
     expect(icon.parentNode?.firstChild).toBe(icon);
   });
 
-  it('debería renderizar el icono después del texto si iconPosition es "end"', () => {
+  it("render text with end icon", () => {
     const { getByTestId } = render(
       <TestWrapper>
         <Typography

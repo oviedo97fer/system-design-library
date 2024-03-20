@@ -10,6 +10,7 @@ interface Props {
   isLoading?: boolean;
   isSuccess?: boolean;
   error?: string;
+  fitContent?: boolean;
 }
 
 const CustomButton = styled(MuiButton)(
@@ -17,10 +18,12 @@ const CustomButton = styled(MuiButton)(
     theme,
     isSuccess,
     error,
+    fitContent,
   }: { theme: Theme } & Props & Omit<MuiButtonProps, keyof Props>) => ({
     borderRadius: 25,
     textTransform: "none",
     boxShadow: "none",
+    width: fitContent ? "fit-content" : "100%",
     ...(error && { background: theme.palette.error.main }),
     "&.Mui-disabled": isSuccess && {
       background: theme.palette.success.main,
