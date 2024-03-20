@@ -14,13 +14,14 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 interface Props {
   label?: string;
   isPassword?: boolean;
+  sx?: any;
 }
 interface MyTheme extends Theme {
   transitions: {
     create: (props: string | string[]) => string;
   };
 }
-const CustomInput = styled(FormControl)<Props>(
+const CustomInput = styled(FormControl, { skipSx: false })<Props>(
   ({ theme }: { theme: Theme } & Props) => ({
     "& .MuiFormLabel-root": {
       fontSize: "1.5em",
@@ -55,7 +56,7 @@ const CustomInput = styled(FormControl)<Props>(
 );
 
 const Input = (props: Props & Omit<InputBaseProps, keyof Props>) => {
-  const { label, id, type, isPassword, fullWidth, ...other } = props;
+  const { label, id, type, isPassword, fullWidth, sx, ...other } = props;
   const [inputType, setInputType] = React.useState(
     isPassword ? "password" : props.type
   );
@@ -73,7 +74,7 @@ const Input = (props: Props & Omit<InputBaseProps, keyof Props>) => {
   ));
 
   return (
-    <CustomInput variant="standard" fullWidth={fullWidth}>
+    <CustomInput variant="standard" fullWidth={fullWidth} sx={sx}>
       <InputLabel shrink htmlFor={id}>
         {label}
       </InputLabel>

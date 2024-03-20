@@ -13,7 +13,7 @@ interface Props {
   fitContent?: boolean;
 }
 
-const CustomButton = styled(MuiButton)(
+const CustomButton = styled(MuiButton, { skipSx: false })(
   ({
     theme,
     isSuccess,
@@ -31,6 +31,7 @@ const CustomButton = styled(MuiButton)(
     },
   })
 ) as typeof MuiButton;
+
 const Button = (props: Props & Omit<MuiButtonProps, keyof Props>) => {
   return (
     <CustomButton

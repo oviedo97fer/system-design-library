@@ -12,7 +12,7 @@ interface Props {
   withBorder?: boolean;
 }
 
-const CustomMenuItem = styled(MuiMenuItem)<Props>(
+const CustomMenuItem = styled(MuiMenuItem, { skipSx: false })<Props>(
   ({
     theme,
     withBorder,

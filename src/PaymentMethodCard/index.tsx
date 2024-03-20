@@ -13,7 +13,9 @@ interface Props {
   icon?: React.ReactNode;
 }
 
-const CustomPaymentMethodCard = styled(ListItemButton)<Props>(
+const CustomPaymentMethodCard = styled(ListItemButton, {
+  skipSx: false,
+})<Props>(
   ({
     theme,
     selected,

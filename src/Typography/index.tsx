@@ -12,7 +12,7 @@ interface Props {
   iconPosition?: "start" | "end";
 }
 
-const CustomTypography = styled(MuiTypography)<Props>(
+const CustomTypography = styled(MuiTypography, { skipSx: false })<Props>(
   ({ theme }: { theme: Theme }) => ({
     color: theme.palette.text.primary,
   })
