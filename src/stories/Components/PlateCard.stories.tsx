@@ -9,5 +9,5 @@ export default {
 } as Meta;
 
 export const Default: StoryFn = ({ ...args }) => {
-  return <PlateCard view="create" closable {...args} />;
+  return <PlateCard view="create" closable {...args} onDelete={() => ""} />;
 };
