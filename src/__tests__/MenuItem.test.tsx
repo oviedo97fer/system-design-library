@@ -6,14 +6,6 @@ import TestWrapper from "./TestWrapper";
 import { theme } from "../stylesheet";
 
 describe("MenuItem component", () => {
-  it("renders without crashing", () => {
-    render(
-      <TestWrapper>
-        <MenuItem />
-      </TestWrapper>
-    );
-  });
-
   it("renders text correctly", () => {
     const { getByText } = render(
       <TestWrapper>

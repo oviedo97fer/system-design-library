@@ -4,7 +4,7 @@
      "types": ["jest", "@types/node","@testing-library/jest-dom"],
      "forceConsistentCasingInFileNames": true,
      "jsx": "react",
-     "module": "commonjs",
+     "module": "ES6",
      "moduleResolution": "node",
      "newLine": "lf",
      "noEmitOnError": true,
