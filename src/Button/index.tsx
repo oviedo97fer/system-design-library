@@ -1,5 +1,6 @@
 import React from "react";
-import { styled, Theme } from "@mui/system";
+import { Theme } from "@mui/system";
+import { styled } from "@mui/material/styles";
 import {
   Button as MuiButton,
   CircularProgress,
