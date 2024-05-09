@@ -5,52 +5,51 @@ import PlateCard from "../PlateCard";
 import TestWrapper from "./TestWrapper";
 
 describe("PlateCard component", () => {
-  test("renders children correctly", () => {
+  it("renders children correctly", () => {
     render(
       <TestWrapper>
-        <PlateCard view="create" onDelete={() => ""}>
-          Test Children
-        </PlateCard>
+        <PlateCard>Hello World</PlateCard>
       </TestWrapper>
     );
-    const childrenElement = screen.getByText("Test Children");
-    expect(childrenElement).toBeInTheDocument();
+    const childElement = screen.getByText("Hello World");
+    expect(childElement).toBeInTheDocument();
   });
 
-  it('changes view to edit when "Edit" menu item is clicked', () => {
-    const { getByText, getByTestId, queryByText } = render(
+  it("displays menu when showOptions is true", () => {
+    const options = [{ label: "Option 1", onClick: jest.fn() }];
+    render(
       <TestWrapper>
-        <PlateCard view="resume" onDelete={() => {}}>
-          <div>Hello World</div>
-        </PlateCard>
+        <PlateCard showOptions={true} options={options} />
       </TestWrapper>
     );
-
-    fireEvent.click(getByTestId("open-menu-button"));
-
-    expect(queryByText("Edit")).toBeInTheDocument();
-
-    fireEvent.click(getByText("Edit"));
-
-    expect(queryByText("Hello World")).toBeInTheDocument();
+    const menuButton = screen.getByTestId("open-menu-button");
+    fireEvent.click(menuButton);
+    const menuItem = screen.getByText("Option 1");
+    expect(menuItem).toBeInTheDocument();
   });
 
-  it("triggers onDelete function when delete button is clicked", () => {
-    const onDeleteMock = jest.fn();
-    const { getByText, getByTestId } = render(
+  it("executes onClick callback when menu item is clicked", () => {
+    const onClickMock = jest.fn();
+    const options = [{ label: "Option 1", onClick: onClickMock }];
+    render(
       <TestWrapper>
-        <PlateCard view="resume" onDelete={onDeleteMock}>
-          <div>Hello World</div>
-        </PlateCard>
+        <PlateCard showOptions={true} options={options} />
       </TestWrapper>
     );
+    const menuButton = screen.getByTestId("open-menu-button");
+    fireEvent.click(menuButton);
+    const menuItem = screen.getByText("Option 1");
+    fireEvent.click(menuItem);
+    expect(onClickMock).toHaveBeenCalledTimes(1);
+  });
 
-    fireEvent.click(getByTestId("open-menu-button"));
-
-    expect(getByText("Delete")).toBeInTheDocument();
-
-    fireEvent.click(getByText("Delete"));
-
-    expect(onDeleteMock).toHaveBeenCalled();
+  it("does not display menu when showOptions is false", () => {
+    render(
+      <TestWrapper>
+        <PlateCard showOptions={false} />
+      </TestWrapper>
+    );
+    const menuButton = screen.queryByTestId("open-menu-button");
+    expect(menuButton).not.toBeInTheDocument();
   });
 });

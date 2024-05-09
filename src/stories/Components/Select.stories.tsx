@@ -1,13 +1,13 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
-import { PlateCard } from "../../index";
+import { Select } from "../../index";
 
 export default {
-  title: "Components/PlateCard",
-  component: PlateCard,
+  title: "Components/Select",
+  component: Select,
 } as Meta;
 
 export const Default: StoryFn = ({ ...args }) => {
-  return <PlateCard closable {...args} />;
+  return <Select variant="standard" {...args} options={[]} fullWidth />;
 };

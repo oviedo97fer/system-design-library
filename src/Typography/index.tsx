@@ -1,5 +1,5 @@
 import React from "react";
-import { styled, Theme } from "@mui/system";
+import { styled } from "@mui/system";
 import {
   Typography as MuiTypography,
   TypographyProps as MuiTypographyProps,
@@ -13,9 +13,7 @@ interface Props {
 }
 
 const CustomTypography = styled(MuiTypography, { skipSx: false })<Props>(
-  ({ theme }: { theme: Theme }) => ({
-    color: theme.palette.text.primary,
-  })
+  () => ({})
 ) as typeof MuiTypography;
 
 const Typography = (props: Props & Omit<MuiTypographyProps, keyof Props>) => {
