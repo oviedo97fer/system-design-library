@@ -7,6 +7,7 @@ import {
   InputBase,
   InputBaseProps,
   InputAdornment,
+  FormHelperText,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -14,6 +15,8 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 interface Props {
   label?: string;
   isPassword?: boolean;
+  helperText?: string;
+  error?: boolean;
   sx?: any;
 }
 interface MyTheme extends Theme {
@@ -21,42 +24,28 @@ interface MyTheme extends Theme {
     create: (props: string | string[]) => string;
   };
 }
-const CustomInput = styled(FormControl, { skipSx: false })<Props>(
-  ({ theme }: { theme: Theme } & Props) => ({
-    "& .MuiFormLabel-root": {
-      fontSize: "1.5em",
-      color: theme.palette.text.primary,
-    },
-    "& .MuiInputBase-input": {
-      marginTop: theme.spacing(4),
+const CustomInput =styled(InputBase, { skipSx: false })<Props>(({ theme }: { theme: Theme } & Props) => ({
+  "label + &": {
+      marginTop: theme.spacing(3)
+  },
+  "& .MuiInputBase-input": {
       borderRadius: 4,
       position: "relative",
+      backgroundColor: theme.palette.mode === "light" ? "#F3F6F9" : "#1A2027",
       border: "1px solid",
-      borderColor: theme.palette.background.gray,
+      borderColor: theme.palette.mode === "light" ? "#c0c2c5" : "#2D3843",
       fontSize: 16,
-      padding: "10px 35px 10px 12px",
-      transition: (theme as MyTheme).transitions.create([
-        "border-color",
-        "background-color",
-        "box-shadow",
-      ]),
-
+      padding: "10px 12px",
+      transition: (theme as MyTheme).transitions.create(["border-color", "background-color", "box-shadow"]),
       "&:focus": {
-        boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-        borderColor: theme.palette.primary.main,
-      },
-    },
-    "& .MuiInputAdornment-positionEnd": {
-      position: "absolute",
-      right: ".5rem",
-      bottom: "1.5rem",
-      cursor: "pointer",
-    },
-  })
-);
+          boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+          borderColor: theme.palette.primary.main
+      }
+  }
+}));
 
 const Input = (props: Props & Omit<InputBaseProps, keyof Props>) => {
-  const { label, id, type, isPassword, fullWidth, sx, ...other } = props;
+  const { label, id, type, isPassword, fullWidth, helperText, error, sx, ...other } = props;
   const [inputType, setInputType] = React.useState(
     isPassword ? "password" : props.type
   );
@@ -74,11 +63,11 @@ const Input = (props: Props & Omit<InputBaseProps, keyof Props>) => {
   ));
 
   return (
-    <CustomInput variant="standard" fullWidth={fullWidth} sx={sx}>
+    <FormControl variant="standard" fullWidth={fullWidth} error={error} sx={sx}>
       <InputLabel shrink htmlFor={id}>
         {label}
       </InputLabel>
-      <InputBase
+      <CustomInput
         id={id}
         type={inputType}
         {...other}
@@ -86,7 +75,8 @@ const Input = (props: Props & Omit<InputBaseProps, keyof Props>) => {
           endAdornment: <IconEndAdornment />,
         })}
       />
-    </CustomInput>
+      <FormHelperText>{helperText}</FormHelperText>
+    </FormControl>
   );
 };
 

@@ -41,9 +41,11 @@ const PlateCard = (props: Props & Omit<StackProps, keyof Props>) => {
   };
   return (
     <CustomCard showOptions={showOptions} {...other} sx={sx}>
-      <Stack flexDirection={showOptions ? "row" : "column"}>{children}</Stack>
+      <Stack flexDirection={showOptions ? "row" : "column"} width="100%">
+        {children}
+      </Stack>
       {showOptions && (
-        <div style={{ width: "fit-content", alignSelf: "end" }}>
+        <div style={{ width: "fit-content", alignSelf: "flex-start" }}>
           <IconButton
             data-testid="open-menu-button"
             aria-expanded={open ? "true" : undefined}
@@ -52,8 +54,9 @@ const PlateCard = (props: Props & Omit<StackProps, keyof Props>) => {
             <MoreVertIcon />
           </IconButton>
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-            {options?.map(({ label, onClick }) => (
+            {options?.map(({ label, onClick }, idx) => (
               <MenuItem
+                key={idx}
                 onClick={() => {
                   onClick();
                   handleClose();

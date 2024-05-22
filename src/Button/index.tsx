@@ -12,6 +12,7 @@ interface Props {
   isSuccess?: boolean;
   error?: string;
   fitContent?: boolean;
+  sx?: any;
 }
 
 const CustomButton = styled(MuiButton, { skipSx: false })(
@@ -20,6 +21,7 @@ const CustomButton = styled(MuiButton, { skipSx: false })(
     isSuccess,
     error,
     fitContent,
+    sx
   }: { theme: Theme } & Props & Omit<MuiButtonProps, keyof Props>) => ({
     borderRadius: 25,
     textTransform: "none",
@@ -30,6 +32,7 @@ const CustomButton = styled(MuiButton, { skipSx: false })(
       background: theme.palette.success.main,
       color: theme.palette.background.default,
     },
+    ...sx,
   })
 ) as typeof MuiButton;
 
