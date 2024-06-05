@@ -12,7 +12,7 @@ describe("Button Component", () => {
   });
 
   test("renders loading state", () => {
-    const { getByRole } = render(<Button isLoading>Click me</Button>);
+    const { getByRole } = render(<Button loading>Click me</Button>);
     expect(getByRole("progressbar")).toBeInTheDocument();
   });
 
