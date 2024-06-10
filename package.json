@@ -51,26 +51,27 @@
     },
     "dependencies": {
         "@emotion/cache": "^11.11.0",
-        "@emotion/react": "^11.11.3",
+        "@emotion/react": "^11.11.4",
         "@emotion/styled": "^11.11.0",
         "@mui/icons-material": "^5.15.14",
         "@mui/lab": "^5.0.0-alpha.170",
         "@mui/material": "^5.15.10",
         "@mui/system": "^5.15.13",
+        "@mui/x-date-pickers": "^7.6.2",
         "@storybook/react": "^8.1.5",
+        "dayjs": "^1.11.11",
         "del-cli": "^5.1.0",
         "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react-dom": "^18.2.0",
+        "react-markdown": "^9.0.1"
     },
     "peerDependencies": {
         "@emotion/cache": "^11.11.0",
-        "@emotion/react": "^11.11.3",
         "@emotion/styled": "^11.11.0",
         "@mui/icons-material": "^5.15.14",
         "@mui/material": "^5.15.10",
         "@mui/system": "^5.15.13",
         "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "@mui/lab": "^5.0.0-alpha.170"
+        "react-dom": "^18.2.0"
     }
 }
