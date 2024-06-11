@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Checkbox, FormControlLabel, Grid, Typography } from "@mui/material";
+import { Button, Checkbox, FormControlLabel, Typography } from "@mui/material";
 import ReactMarkdown, { Components } from "react-markdown";
 
 interface MarkdownRenderProps {
@@ -26,7 +26,7 @@ const MarkdownRender: React.FC<MarkdownRenderProps> = ({
 			const isButton = href === "#";
 			const isHintLink = href.includes("hint-");
 			const isCloseButton = href.includes("close");
-			const hintKey = isHintLink ? href.slice(5) : "";
+			// const hintKey = isHintLink ? href.slice(5) : "";
 			const isSimpleLink = href.includes("link:");
 
 			if (href === "checkbox") {
