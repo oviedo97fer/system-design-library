@@ -15,6 +15,9 @@ export const Default: StoryFn = ({ ...args }) => {
             name=""
             value=""
             language="en"
+            onChange={(value) => {
+                console.log(value);
+            }}
             disabled={false}
             size="small"
             required

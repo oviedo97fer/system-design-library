@@ -50,7 +50,7 @@ const DateTimePicker: React.FC<Props> = ({
                     if (newValue) {
                         const formattedValue = withoutFormat
                             ? newValue.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
-                            : newValue.utc().format(format);
+                            : newValue.format(format);
                         onChange(name, formattedValue);
                     }
                 }}
