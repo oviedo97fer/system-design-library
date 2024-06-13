@@ -7,5 +7,17 @@ import PlateCard from "./PlateCard";
 import Select from "./Select";
 import DateTimePicker from "./DateTimePicker";
 import MarkdownRender from "./MarkdownRender";
+import AutocompleteFetching from "./AutocompleteFetching";
 
-export { Button, Input, MenuItem, IconCard, Typography, PlateCard, Select, DateTimePicker, MarkdownRender };
+export {
+	Button,
+	Input,
+	MenuItem,
+	IconCard,
+	Typography,
+	PlateCard,
+	Select,
+	DateTimePicker,
+	MarkdownRender,
+	AutocompleteFetching,
+};
