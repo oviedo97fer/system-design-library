@@ -8,7 +8,7 @@ export interface Props {
 	label?: string;
 	name?: string;
 	value?: string | null;
-	onChange?: (name: string, value: string) => void;
+	onChange?: (value: string) => void;
 	language?: string;
 	disabled?: boolean;
 	variant?: "standard" | "outlined" | "filled";
@@ -53,7 +53,7 @@ const DateTimePicker: React.FC<Props> = ({
 						const formattedValue = withoutFormat
 							? newValue.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
 							: newValue.format(format);
-						onChange(name, formattedValue);
+						onChange(formattedValue);
 					}
 				}}
 				onError={(error: any) => console.log(error)}
