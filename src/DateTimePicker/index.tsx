@@ -1,7 +1,8 @@
 import React, { forwardRef } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker as MuiDateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import dayjs, { Dayjs } from "dayjs";
+import * as dayjs from "dayjs";
+import { Dayjs } from "dayjs";
 import "dayjs/plugin/utc";
 import { CustomInput, TextfieldInputProps } from "../Input";
 
