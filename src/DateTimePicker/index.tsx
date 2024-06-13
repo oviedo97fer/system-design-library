@@ -2,7 +2,6 @@ import React, { forwardRef } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker as MuiDateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
-import "dayjs/plugin/utc";
 import Input, { TextfieldInputProps } from "../Input";
 
 export interface Props {
@@ -21,6 +20,9 @@ export interface Props {
 	withoutFormat?: boolean;
 	[key: string]: any;
 }
+
+const utc = require("dayjs/plugin/utc");
+dayjs.extend(utc);
 
 const CustomInputRef = forwardRef<HTMLInputElement, TextfieldInputProps>((props, ref) => {
 	return <Input ref={ref} {...props} isDate />;
