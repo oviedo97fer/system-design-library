@@ -6,11 +6,11 @@ import { Dayjs } from "dayjs";
 import "dayjs/plugin/utc";
 import { CustomInput, TextfieldInputProps } from "../Input";
 
-interface Props {
+export interface Props {
     label?: string;
     name?: string;
     value?: string | null;
-    onChange?: (name: string, value: string) => void;
+    onChange?: (value: string) => void;
     language?: string;
     disabled?: boolean;
     variant?: "standard" | "outlined" | "filled";
@@ -22,6 +22,9 @@ interface Props {
     withoutFormat?: boolean;
     [key: string]: any;
 }
+
+const utc = require("dayjs/plugin/utc");
+dayjs.extend(utc);
 
 const CustomInputRef = forwardRef<HTMLInputElement, TextfieldInputProps>((props, ref) => {
     return <CustomInput ref={ref} {...props} isDate />;
@@ -52,7 +55,7 @@ const DateTimePicker: React.FC<Props> = ({
                         const formattedValue = withoutFormat
                             ? newValue.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
                             : newValue.format(format);
-                        onChange(name, formattedValue);
+                        onChange(formattedValue);
                     }
                 }}
                 onError={(error: any) => console.log(error)}
@@ -60,7 +63,6 @@ const DateTimePicker: React.FC<Props> = ({
                 format={format}
                 disableOpenPicker={readOnly}
                 slotProps={{
-                    // Targets the `IconButton` component.
                     openPickerIcon: {
                         sx: {
                             fontSize: 16
