@@ -71,7 +71,6 @@ const DateTimePicker: React.FC<Props> = ({
                     textField: {
                         variant,
                         name,
-                        label,
                         fullWidth: true,
                         hiddenLabel: true,
                         size,
