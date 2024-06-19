@@ -8,6 +8,7 @@ import Select from "./Select";
 import DateTimePicker from "./DateTimePicker";
 import MarkdownRender from "./MarkdownRender";
 import AutocompleteFetching from "./AutocompleteFetching";
+import FilterChip from "./FilterChip";
 
 export {
 	Button,
@@ -20,4 +21,5 @@ export {
 	DateTimePicker,
 	MarkdownRender,
 	AutocompleteFetching,
+	FilterChip
 };
