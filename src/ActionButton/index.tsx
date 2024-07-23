@@ -1,16 +1,20 @@
 import React from "react";
 import { styled, Theme, lighten } from "@mui/system";
-import { ButtonBase, ButtonBaseProps } from "@mui/material";
+import { LoadingButton, LoadingButtonProps } from "@mui/lab";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 
-interface ActionButtonProps extends Omit<ButtonBaseProps, "onClick"> {
+interface Props extends Omit<LoadingButtonProps, "onClick"> {
+    loading?: boolean;
+    isSuccess?: boolean;
+    error?: string;
+    fitContent?: boolean;
+    sx?: any;
     onClick: () => void;
     helperText?: string;
-    disabled?: boolean;
-    icon: React.ReactNode;
     color?: "primary" | "error";
     variant?: "outlined" | "contained";
     withouthTooltip?: boolean;
+    icon?: React.ReactNode;
 }
 
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -31,34 +35,47 @@ const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
     }
 }));
 
-const CustomActionButton = styled(ButtonBase, {
+const CustomButton = styled(LoadingButton, {
     shouldForwardProp: (prop) =>
+        prop !== "fitContent" &&
+        prop !== "isSuccess" &&
         prop !== "withouthTooltip" &&
-        prop !== "color" &&
-        prop !== "contained" &&
-        prop !== "icon" &&
-        prop !== "onClick" &&
+        prop !== "error" &&
         prop !== "helperText" &&
-        prop !== "variant"
-})<ActionButtonProps>(({
+        prop !== "icon"
+})<Props>(({
     theme,
+    isSuccess,
+    error,
+    fitContent = true,
     disabled,
     variant = "contained",
-    color = "primary"
-}: { theme: Theme } & ActionButtonProps) => {
+    color = "primary",
+    sx
+}: { theme: Theme } & Props) => {
     const backgroundColor = variant === "contained" ? theme.palette[color].main : theme.palette.common.white;
     const contrastColor =
         variant === "contained" ? theme.palette.getContrastText(backgroundColor) : theme.palette[color].main;
 
     return {
-        width: "fit-content",
-        ...(variant === "outlined"
-            ? { border: `1px solid ${theme.palette[color].main}` }
-            : { boxShadow: `0px 0px 2px 0px ${theme.palette.divider}` }),
-        outline: "none",
+        textTransform: "none",
+        boxShadow: "none",
+        width: fitContent ? "fit-content" : "100%",
+        ...(error && {
+            borderColor: theme.palette.error.main,
+            color: theme.palette.error.main,
+
+            "&:hover": {
+                background: theme.palette.error.main,
+                color: theme.palette.background.default,
+                borderColor: theme.palette.error.main
+            }
+        }),
+        "&.Mui-disabled": isSuccess && {
+            background: theme.palette.success.main,
+            color: theme.palette.background.default
+        },
         padding: theme.spacing(2),
-        borderRadius: theme.shape.borderRadius,
-        opacity: disabled ? 0.5 : 1,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -67,28 +84,53 @@ const CustomActionButton = styled(ButtonBase, {
         "&:hover": {
             backgroundColor: backgroundColor,
             color: contrastColor
-        }
+        },
+        ...sx
     };
 });
 
-const ActionButton: React.FC<ActionButtonProps> = ({
+const Button: React.FC<Props> = ({
     onClick,
     helperText,
     disabled = false,
     withouthTooltip = false,
+    loading,
+    isSuccess,
+    error,
+    fitContent,
+    sx,
+    icon,
     ...otherProps
 }) => {
+    const handleClick = () => {
+        if (!disabled && !loading && onClick) {
+            onClick();
+        }
+    };
+
     return withouthTooltip ? (
-        <CustomActionButton onClick={onClick} disabled={disabled} {...otherProps}>
-            {otherProps.icon}
-        </CustomActionButton>
+        <CustomButton
+            onClick={handleClick}
+            disabled={disabled || loading || isSuccess}
+            loading={loading}
+            {...otherProps}
+            sx={sx}
+        >
+            {icon}
+        </CustomButton>
     ) : (
         <LightTooltip title={helperText} arrow placement="top">
-            <CustomActionButton onClick={onClick} disabled={disabled} {...otherProps}>
-                {otherProps.icon}
-            </CustomActionButton>
+            <CustomButton
+                onClick={handleClick}
+                disabled={disabled || loading || isSuccess}
+                loading={loading}
+                {...otherProps}
+                sx={sx}
+            >
+                {icon}
+            </CustomButton>
         </LightTooltip>
     );
 };
 
-export default ActionButton;
+export default Button;
