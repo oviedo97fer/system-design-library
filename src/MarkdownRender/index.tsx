@@ -9,10 +9,12 @@ interface MarkdownRenderProps {
     isCentered?: boolean;
     handleRadioChange?: () => void;
     checkboxChecked?: boolean;
+    style?: React.CSSProperties;
 }
 
 const MarkdownRender: React.FC<MarkdownRenderProps> = ({
-    text
+    text,
+    style
     /* onCloseModal = () => {},
     onConfirmModal = () => {},
     isCentered = false,
@@ -100,7 +102,7 @@ const MarkdownRender: React.FC<MarkdownRenderProps> = ({
     return (
         <MarkdownPreview
             source={text}
-            style={{ padding: 16 }}
+            style={{ padding: 16, backgroundColor: "transparent", fontSize: 14, ...style }}
             /* components={components} */
         />
     );
