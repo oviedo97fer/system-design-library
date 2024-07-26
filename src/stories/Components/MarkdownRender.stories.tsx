@@ -10,6 +10,9 @@ export default {
 
 export const Default: StoryFn = ({ ...args }) => {
     return (
-        <MarkdownRender text="By tapping 'Create account' or 'Login' you agree to our [Conditions of Use.](link:#) Learn how we process your data in our [Privacy Policy and Cookies Policy.](link:#)" />
+        <MarkdownRender
+            text="By tapping 'Create account' or 'Login' you agree to our [Conditions of Use.](link:#) Learn how we process your data in our [Privacy Policy and Cookies Policy.](link:#)"
+            {...args}
+        />
     );
 };
