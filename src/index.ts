@@ -11,6 +11,8 @@ import AutocompleteFetching from "./AutocompleteFetching";
 import FilterChip from "./FilterChip";
 import LabelButton from "./LabelButton";
 import ActionButton from "./ActionButton";
+import DatePicker from "./DatePicker";
+import TimePicker from "./TimePicker";
 
 export {
     Button,
@@ -25,5 +27,7 @@ export {
     AutocompleteFetching,
     FilterChip,
     LabelButton,
-    ActionButton
+    ActionButton,
+    DatePicker,
+    TimePicker
 };
