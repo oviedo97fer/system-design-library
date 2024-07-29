@@ -5,6 +5,7 @@ import * as dayjs from "dayjs";
 import { Dayjs } from "dayjs";
 import "dayjs/plugin/utc";
 import { CustomInput, TextfieldInputProps } from "../Input";
+import utc from 'dayjs/plugin/utc';
 
 export interface Props {
 	label?: string;
@@ -23,7 +24,6 @@ export interface Props {
 	[key: string]: any;
 }
 
-const utc = require("dayjs/plugin/utc");
 dayjs.extend(utc);
 
 const CustomInputRef = forwardRef<HTMLInputElement, TextfieldInputProps>((props, ref) => {
