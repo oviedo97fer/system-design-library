@@ -16,7 +16,9 @@ import { PickersDayProps } from "@mui/lab";
 import { pickersDayClasses } from "@mui/x-date-pickers";
 import { styled } from "@mui/system";
 
-export interface Props extends DatePickerProps<PickerValidDate, boolean> {
+export interface DatePickerBaseProps extends DatePickerProps<PickerValidDate, boolean> {}
+
+export interface Props extends DatePickerBaseProps {
     label?: string;
     name?: string;
     onChangeDate?: (value: string) => void;
@@ -32,6 +34,7 @@ export interface Props extends DatePickerProps<PickerValidDate, boolean> {
     // shouldDisableDate?: () => boolean;
     [key: string]: any;
 }
+
 
 dayjs.extend(utc);
 

@@ -13,6 +13,7 @@ import LabelButton from "./LabelButton";
 import ActionButton from "./ActionButton";
 import DatePicker from "./DatePicker";
 import TimePicker from "./TimePicker";
+import GoogleAutocomplete from "./GoogleAutocomplete";
 
 export {
     Button,
@@ -29,5 +30,6 @@ export {
     LabelButton,
     ActionButton,
     DatePicker,
-    TimePicker
+    TimePicker,
+    GoogleAutocomplete
 };
