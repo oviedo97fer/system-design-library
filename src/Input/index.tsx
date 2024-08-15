@@ -55,7 +55,6 @@ export type TextfieldInputProps = Props & Omit<TextFieldProps, keyof Props>;
 const Input = (props: TextfieldInputProps) => {
     const { label, id, type, isPassword, fullWidth, helperText, error, sx, ...other } = props;
 
-    console.log({ other });
     const [inputType, setInputType] = React.useState(isPassword ? "password" : props.type);
 
     const IconEndAdornment = React.memo(() => (
