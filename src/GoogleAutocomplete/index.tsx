@@ -50,6 +50,7 @@ interface AddressAutocompleteProps
     searchText?: string;
     notFound?: boolean;
     externalLoading?: boolean;
+    currentAddressValue?: AddressResult;
 }
 
 interface AddressResult {
@@ -58,6 +59,7 @@ interface AddressResult {
     postalCode: string;
     state: string;
     city: string;
+    googleValue: PlaceType | null;
 }
 
 const autocompleteService = { current: null };
@@ -76,6 +78,7 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
     searchText = "Search..",
     notFound = false,
     externalLoading,
+    currentAddressValue,
     ...props
 }) => {
     const [inputValue, setInputValue] = useState<string>("");
@@ -104,6 +107,13 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
             }, 400),
         []
     );
+
+    useEffect(() => {
+        if (currentAddressValue) {
+            // setInputValue(currentAddressValue.googleValue?.structured_formatting.main_text);
+            setCurrentValue(currentAddressValue.googleValue);
+        }
+    }, []);
 
     const fetchPlaceDetails = (
         request: {
@@ -190,7 +200,8 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
                         street,
                         postalCode,
                         state,
-                        city
+                        city,
+                        googleValue: currentValue
                     };
 
                     setLoading(false);
