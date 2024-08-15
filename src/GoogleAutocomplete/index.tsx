@@ -15,11 +15,19 @@ interface StructuredFormatting {
     main_text_matched_substrings?: readonly MainTextMatchedSubstrings[];
 }
 
+interface Term {
+	offset: number;
+	value: string;
+}
+
 interface PlaceType {
     place_id: string;
     reference: string;
     description: string;
     structured_formatting: StructuredFormatting;
+	matched_substrings?: readonly MainTextMatchedSubstrings[];
+	terms: Term[];
+	types: string[];
 }
 
 interface PlaceDetails {
@@ -113,7 +121,7 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
             // setInputValue(currentAddressValue.googleValue?.structured_formatting.main_text);
             setCurrentValue(currentAddressValue.googleValue);
         }
-    }, []);
+    }, [currentAddressValue]);
 
     const fetchPlaceDetails = (
         request: {
@@ -169,7 +177,7 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
         }
     }, [addressResult]);
 
-    const getPlaceDetails = (placeId: string) => {
+    const getPlaceDetails = (placeId: string, googleValue: PlaceType) => {
         setLoading(true);
         fetchPlaceDetails({ placeId, fields: ["address_component"] }, (result?: PlaceDetails) => {
             try {
@@ -201,7 +209,7 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
                         postalCode,
                         state,
                         city,
-                        googleValue: currentValue
+                        googleValue
                     };
 
                     setLoading(false);
@@ -260,7 +268,7 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
                     const validatedAddress = newValue as PlaceType;
 
                     if (validatedAddress.place_id) {
-                        getPlaceDetails(validatedAddress.place_id);
+                        getPlaceDetails(validatedAddress.place_id, validatedAddress);
                     }
 
                     setCurrentValue(validatedAddress);
