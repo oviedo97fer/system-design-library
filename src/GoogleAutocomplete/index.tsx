@@ -16,8 +16,8 @@ interface StructuredFormatting {
 }
 
 interface Term {
-	offset: number;
-	value: string;
+    offset: number;
+    value: string;
 }
 
 interface PlaceType {
@@ -25,9 +25,9 @@ interface PlaceType {
     reference: string;
     description: string;
     structured_formatting: StructuredFormatting;
-	matched_substrings?: readonly MainTextMatchedSubstrings[];
-	terms: Term[];
-	types: string[];
+    matched_substrings?: readonly MainTextMatchedSubstrings[];
+    terms: Term[];
+    types: string[];
 }
 
 interface PlaceDetails {
@@ -255,7 +255,7 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
                     console.log("ERROR", { error });
                 }}
                 value={currentValue}
-                getOptionLabel={(option) => option.structured_formatting.main_text}
+                getOptionLabel={(option) => option?.structured_formatting?.main_text}
                 getOptionKey={(option) => option.place_id}
                 noOptionsText={notFound ? noResultsText : searchText}
                 {...props}
@@ -307,11 +307,11 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
                                 </Grid>
                                 <Grid item sx={{ width: "calc(100% - 44px)", wordWrap: "break-word" }}>
                                     <Box component="span" sx={{ fontWeight: "bold" }}>
-                                        {option.structured_formatting.main_text}
+                                        {option.structured_formatting?.main_text}
                                     </Box>
 
                                     <Typography variant="body2" color="text.secondary">
-                                        {option.structured_formatting.secondary_text}
+                                        {option.structured_formatting?.secondary_text}
                                     </Typography>
                                 </Grid>
                             </Grid>
