@@ -15,11 +15,19 @@ interface StructuredFormatting {
     main_text_matched_substrings?: readonly MainTextMatchedSubstrings[];
 }
 
+interface Term {
+	offset: number;
+	value: string;
+}
+
 interface PlaceType {
     place_id: string;
     reference: string;
     description: string;
     structured_formatting: StructuredFormatting;
+	matched_substrings?: readonly MainTextMatchedSubstrings[];
+	terms: Term[];
+	types: string[];
 }
 
 interface PlaceDetails {
@@ -49,6 +57,8 @@ interface AddressAutocompleteProps
     noResultsText?: string;
     searchText?: string;
     notFound?: boolean;
+    externalLoading?: boolean;
+    currentAddressValue?: AddressResult;
 }
 
 interface AddressResult {
@@ -57,6 +67,7 @@ interface AddressResult {
     postalCode: string;
     state: string;
     city: string;
+    googleValue: PlaceType | null;
 }
 
 const autocompleteService = { current: null };
@@ -74,6 +85,8 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
     noResultsText = "no_results",
     searchText = "Search..",
     notFound = false,
+    externalLoading,
+    currentAddressValue,
     ...props
 }) => {
     const [inputValue, setInputValue] = useState<string>("");
@@ -102,6 +115,13 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
             }, 400),
         []
     );
+
+    useEffect(() => {
+        if (currentAddressValue) {
+            // setInputValue(currentAddressValue.googleValue?.structured_formatting.main_text);
+            setCurrentValue(currentAddressValue.googleValue);
+        }
+    }, [currentAddressValue]);
 
     const fetchPlaceDetails = (
         request: {
@@ -157,7 +177,7 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
         }
     }, [addressResult]);
 
-    const getPlaceDetails = (placeId: string) => {
+    const getPlaceDetails = (placeId: string, googleValue: PlaceType) => {
         setLoading(true);
         fetchPlaceDetails({ placeId, fields: ["address_component"] }, (result?: PlaceDetails) => {
             try {
@@ -188,7 +208,8 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
                         street,
                         postalCode,
                         state,
-                        city
+                        city,
+                        googleValue
                     };
 
                     setLoading(false);
@@ -221,7 +242,7 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
             <Autocomplete
                 id={id}
                 options={options}
-                loading={loading}
+                loading={loading || externalLoading}
                 autoComplete
                 includeInputInList
                 inputValue={inputValue}
@@ -247,7 +268,7 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
                     const validatedAddress = newValue as PlaceType;
 
                     if (validatedAddress.place_id) {
-                        getPlaceDetails(validatedAddress.place_id);
+                        getPlaceDetails(validatedAddress.place_id, validatedAddress);
                     }
 
                     setCurrentValue(validatedAddress);
