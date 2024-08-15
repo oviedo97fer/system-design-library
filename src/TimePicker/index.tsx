@@ -14,7 +14,9 @@ import utc from "dayjs/plugin/utc";
 import { styled } from "@mui/system";
 import { ExtendButtonBase, MenuItem, MenuItemTypeMap } from "@mui/material";
 
-export interface Props extends TimePickerProps<PickerValidDate, boolean> {
+export type TimePickerBaseProps = TimePickerProps<PickerValidDate, boolean>;
+
+export interface Props extends TimePickerBaseProps {
     label?: string;
     name?: string;
     onChangeDate?: (value: string) => void;
