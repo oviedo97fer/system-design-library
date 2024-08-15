@@ -49,6 +49,7 @@ interface AddressAutocompleteProps
     noResultsText?: string;
     searchText?: string;
     notFound?: boolean;
+    externalLoading?: boolean;
 }
 
 interface AddressResult {
@@ -74,6 +75,7 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
     noResultsText = "no_results",
     searchText = "Search..",
     notFound = false,
+    externalLoading,
     ...props
 }) => {
     const [inputValue, setInputValue] = useState<string>("");
@@ -221,7 +223,7 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
             <Autocomplete
                 id={id}
                 options={options}
-                loading={loading}
+                loading={loading || externalLoading}
                 autoComplete
                 includeInputInList
                 inputValue={inputValue}
