@@ -59,6 +59,7 @@ interface AddressAutocompleteProps
     notFound?: boolean;
     externalLoading?: boolean;
     currentAddressValue?: AddressResult;
+    locationRestriction?: LocationRestriction;
 }
 
 interface AddressResult {
@@ -68,6 +69,13 @@ interface AddressResult {
     state: string;
     city: string;
     googleValue: PlaceType | null;
+}
+
+interface LocationRestriction {
+    north: number;
+    south: number;
+    east: number;
+    west: number;
 }
 
 const autocompleteService = { current: null };
@@ -87,6 +95,7 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
     notFound = false,
     externalLoading,
     currentAddressValue,
+    locationRestriction,
     ...props
 }) => {
     const [inputValue, setInputValue] = useState<string>("");
@@ -110,9 +119,18 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
 
     const fetch = useMemo(
         () =>
-            debounce((request: { input: string }, callback: (results?: readonly PlaceType[]) => void) => {
-                (autocompleteService.current as any).getPlacePredictions(request, callback);
-            }, 400),
+            debounce(
+                (
+                    request: {
+                        input: string;
+                        locationRestriction?: LocationRestriction;
+                    },
+                    callback: (results?: readonly PlaceType[]) => void
+                ) => {
+                    (autocompleteService.current as any).getPlacePredictions(request, callback);
+                },
+                400
+            ),
         []
     );
 
@@ -150,21 +168,27 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
             return undefined;
         }
         setLoading(true);
-        fetch({ input: inputValue }, (results?: readonly PlaceType[]) => {
-            if (active) {
-                let newOptions: readonly PlaceType[] = [];
+        fetch(
+            {
+                input: inputValue,
+                locationRestriction
+            },
+            (results?: readonly PlaceType[]) => {
+                if (active) {
+                    let newOptions: readonly PlaceType[] = [];
 
-                if (currentValue) {
-                    newOptions = [currentValue];
-                }
+                    if (currentValue) {
+                        newOptions = [currentValue];
+                    }
 
-                if (results) {
-                    newOptions = [...newOptions, ...results];
+                    if (results) {
+                        newOptions = [...newOptions, ...results];
+                    }
+                    setLoading(false);
+                    setOptions(newOptions);
                 }
-                setLoading(false);
-                setOptions(newOptions);
             }
-        });
+        );
 
         return () => {
             active = false;
@@ -243,6 +267,15 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
                 id={id}
                 options={options}
                 loading={loading || externalLoading}
+                filterOptions={(options, state) => {
+                    const inputWords = state.inputValue?.toLowerCase().split(" ").filter(Boolean);
+
+                    return options.filter((option) => {
+                        const description = option.description?.toLowerCase();
+                        // Verifica si todas las palabras del input están en la descripción
+                        return inputWords.every((word) => description.includes(word));
+                    });
+                }}
                 autoComplete
                 includeInputInList
                 inputValue={inputValue}
