@@ -97,7 +97,7 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
     const loaded = useRef(false);
 
     if (typeof window !== "undefined" && !loaded.current) {
-        if (!document.querySelector("#google-maps")) {
+        if (!document.querySelector("#google-maps") && googleMapsApiKey) {
             loadScript(
                 `https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&libraries=places`,
                 document.querySelector("head"),
