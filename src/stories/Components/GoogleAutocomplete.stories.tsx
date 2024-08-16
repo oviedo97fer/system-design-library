@@ -17,6 +17,12 @@ export const Default: StoryFn = (args) => {
             googleMapsApiKey="AIzaSyDBPBW1NFp6WP2j_A4vCiUNtYN1zWhn5L0"
             onChange={(value) => console.log("RESULT: ", value)}
             noResultsText="no_results"
+            locationRestriction={{
+                north: 41,
+                south: 39.9,
+                east: -79,
+                west: -81
+            }}
             currentAddressValue={{
                 streetNumber: "5944",
                 street: "Alder Street",
