@@ -1,6 +1,6 @@
 {
     "name": "2ds-system-design-library",
-    "version": "1.0.41",
+    "version": "1.0.42",
     "description": "mui system design library",
     "scripts": {
         "test": "jest",
