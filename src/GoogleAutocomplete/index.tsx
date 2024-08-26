@@ -206,7 +206,7 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
         fetchPlaceDetails({ placeId, fields: ["address_component"] }, (result?: PlaceDetails) => {
             try {
                 if (result) {
-                    const streetNumber =
+                    let streetNumber =
                         result.address_components.find((component) => component.types.includes("street_number"))
                             ?.long_name || "";
 
@@ -226,6 +226,16 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
                     const postalCode =
                         result.address_components.find((component) => component.types.includes("postal_code"))
                             ?.long_name || "";
+
+                    if (!streetNumber.length) {
+                        const extractedStreetNumber: number = Number(
+                            googleValue.structured_formatting.main_text.split(" ")[0]
+                        );
+
+                        if (!isNaN(extractedStreetNumber)) {
+                            streetNumber = `${extractedStreetNumber}`;
+                        }
+                    }
 
                     const addressResult = {
                         streetNumber,
