@@ -3,8 +3,9 @@ import { styled } from "@mui/system";
 import { SelectProps, Select as MuiSelect, MenuItem } from "@mui/material";
 
 interface Option {
-    label?: string;
-    value?: number;
+  label?: string;
+  value?: number;
+  disabled?: boolean;
 }
 interface Props {
     options: Array<Option>;
@@ -28,8 +29,8 @@ const Select = (props: Props & Omit<SelectProps, keyof Props>) => {
             renderValue={!other.value ? () => holderLabel : undefined}
             {...other}
         >
-            {options.map(({ value, label }, idx) => (
-                <MenuItem key={idx} value={value}>
+            {options.map(({ value, label, disabled }, idx) => (
+                <MenuItem key={idx} value={value} disabled={disabled}>
                     {label}
                 </MenuItem>
             ))}
