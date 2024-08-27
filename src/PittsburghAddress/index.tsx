@@ -75,6 +75,7 @@ const PittsburghAddress: React.FC<PittsburghAddressProps> = ({
     const [loading, setLoading] = useState(false);
 
     const onValidate = (addressResult: QueryAddressResult[], newValueSelected: AddressResult) => {
+        setLoading(false);
         // Si el array está vacío se toma como 404
         if (!addressResult.length) {
             setError({
@@ -124,21 +125,18 @@ const PittsburghAddress: React.FC<PittsburghAddressProps> = ({
             {...props}
             externalLoading={loading || externalLoading}
             onChange={(newValue) => {
-                setLoading(true);
                 if (newValue) {
+                    setLoading(true);
                     onClearSelection();
 
-                    //  setNewValueSelected(newValue);
                     onRequestAddress(
                         {
                             street: newValue.street,
                             streetNumber: newValue.streetNumber
-                            // uses: addressType
                         },
                         {
                             onSuccess: (data) => {
                                 onValidate(data.data, newValue);
-                                setLoading(false);
                             }
                         }
                     );
