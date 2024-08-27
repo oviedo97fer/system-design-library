@@ -43,7 +43,7 @@ export const Default: StoryFn = (args) => {
             setError={(error) => {
                 console.log({ error });
             }}
-            onRequestAddress={(args, callback) => {
+            onRequestAddress={(_, callback) => {
                 const l1 = later(3000, {
                     data: [
                        /*  {
