@@ -14,6 +14,7 @@ import ActionButton from "./ActionButton";
 import DatePicker from "./DatePicker";
 import TimePicker from "./TimePicker";
 import GoogleAutocomplete from "./GoogleAutocomplete";
+import PittsburghAddress from "./PittsburghAddress";
 
 export {
     Button,
@@ -31,5 +32,6 @@ export {
     ActionButton,
     DatePicker,
     TimePicker,
-    GoogleAutocomplete
+    GoogleAutocomplete,
+    PittsburghAddress
 };

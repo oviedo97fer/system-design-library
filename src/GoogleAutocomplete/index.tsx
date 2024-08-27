@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import Autocomplete, { AutocompleteProps } from "@mui/material/Autocomplete";
 import { debounce } from "@mui/material/utils";
-import { Box, FormControl, Grid, InputLabel, TextField, Typography } from "@mui/material";
+import { Box, CircularProgress, FormControl, Grid, InputLabel, TextField, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
@@ -41,7 +41,7 @@ type AddressComponent = {
     types: string[];
 };
 
-interface AddressAutocompleteProps
+export interface AddressAutocompleteProps
     extends Omit<AutocompleteProps<PlaceType, boolean, boolean, false>, "renderInput" | "options" | "onChange"> {
     id: string;
     label?: string;
@@ -62,7 +62,7 @@ interface AddressAutocompleteProps
     locationRestriction?: LocationRestriction;
 }
 
-interface AddressResult {
+export interface AddressResult {
     streetNumber: string;
     street: string;
     postalCode: string;
@@ -276,7 +276,6 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
             <Autocomplete
                 id={id}
                 options={options}
-                loading={loading || externalLoading}
                 filterOptions={(options, state) => {
                     const inputWords = state.inputValue?.toLowerCase().split(" ").filter(Boolean);
 
@@ -302,6 +301,7 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
                 getOptionKey={(option) => option.place_id}
                 noOptionsText={notFound ? noResultsText : searchText}
                 {...props}
+                loading={loading || externalLoading}
                 onChange={(_, newValue) => {
                     if (!newValue) {
                         // Handle empty value
@@ -326,6 +326,15 @@ const GoogleAutocomplete: React.FC<AddressAutocompleteProps> = ({
                         inputRef={props.ref}
                         {...params}
                         id={id}
+                        InputProps={{
+                            ...params.InputProps,
+                            endAdornment: (
+                                <>
+                                    {loading || externalLoading ? <CircularProgress color="inherit" size={18} /> : null}
+                                    {params.InputProps.endAdornment}
+                                </>
+                            )
+                        }}
                         inputProps={{
                             ...params.inputProps,
                             autoComplete: "off"
