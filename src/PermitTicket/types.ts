@@ -1,5 +1,6 @@
 export interface PermitTicketProps {
     paymentData: PaymentResult;
+    plate: string;
 }
 
 export enum PaymentStatus {

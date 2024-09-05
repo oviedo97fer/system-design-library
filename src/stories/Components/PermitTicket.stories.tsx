@@ -10,6 +10,7 @@ export default {
 export const Default: StoryFn = (args) => {
     return (
         <PermitTicket
+            plate={"TEST123"}
             paymentData={{
                 billing: {
                     startDate: "2024-09-05T01:00:00Z",
