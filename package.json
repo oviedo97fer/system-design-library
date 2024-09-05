@@ -58,6 +58,7 @@
         "@mui/material": "^5.15.10",
         "@mui/system": "^5.15.13",
         "@mui/x-date-pickers": "^7.6.2",
+        "@react-pdf/renderer": "^3.4.4",
         "@storybook/react": "^8.1.5",
         "@uiw/react-markdown-preview": "^5.1.2",
         "dayjs": "^1.11.11",
