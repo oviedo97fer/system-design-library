@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { IconButton } from "@mui/material";
 import { Stack} from "@mui/system";
 import { PaymentResult, PayWith, PermitTicketProps } from "./types";
@@ -9,13 +9,11 @@ import {
   Document,
   StyleSheet,
   usePDF,
-  DocumentProps,
-  Image,
+  DocumentProps
 } from "@react-pdf/renderer";
 import DownloadIcon from "@mui/icons-material/Download";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import QRCode from 'qrcode';
 
 dayjs.extend(utc);
 
@@ -68,11 +66,9 @@ const styles = StyleSheet.create({
 
 const PermitTicket: React.FC<PermitTicketProps> = ({
   paymentData,
-  plate,
-  ...props
+  plate
 }) => {
-  const [inputValue, setInputValue] = useState<string>("");
-  const [{ loading, error, ...instance }, updateInstance] = usePDF({
+  const [{ loading, error, ...instance }] = usePDF({
     document: <PDFDocument paymentData={paymentData} plate={plate} />,
   });
 
@@ -125,20 +121,20 @@ interface PDFDocumentProps extends DocumentProps {
 }
 
 const PDFDocument: React.FC<PDFDocumentProps> = ({ paymentData, plate}) => {
-  const [qrCodeData, setQrCodeData] = React.useState("");
+  // const [qrCodeData, setQrCodeData] = React.useState("");
 
-  React.useEffect(() => {
-    const generateQRCode = async () => {
-      try {
-        const url = await QRCode.toDataURL('test124241', { errorCorrectionLevel: 'H' });
-        setQrCodeData(url);
-      } catch (err) {
-        console.error(err);
-      }
-    };
+  // React.useEffect(() => {
+  //   const generateQRCode = async () => {
+  //     try {
+  //       const url = await QRCode.toDataURL('test124241', { errorCorrectionLevel: 'H' });
+  //       setQrCodeData(url);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
 
-    generateQRCode();
-  }, []);
+  //   generateQRCode();
+  // }, []);
   return (
     <Document>
       <Page size={"A4"} style={styles.page}>
